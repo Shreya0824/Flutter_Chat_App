@@ -4,7 +4,9 @@ import 'package:flutter_chat_app/services/database.dart';
 import 'package:flutter_chat_app/views/singin.dart';
 import 'package:flutter_chat_app/widgets/widget.dart';
 import 'package:flutter_chat_app/services/auth.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'chat_room_screen.dart';
+import 'package:lottie/lottie.dart';
 
 class SignUp extends StatefulWidget {
   @override
@@ -45,58 +47,90 @@ authMethods.signUpWithEmailAndPassword(emailTextEditingController.text, password
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       appBar: appBarMain(context),
-      body: isLoading? Center(
+      body: isLoading?  Center(
+          child: SpinKitPouringHourglass(
+            color: Colors.amber,
+            size: 200.0,
+          )):
+      SingleChildScrollView(
         child: Container(
-          child: CircularProgressIndicator(),
-        ),
-      ):
-      Container(
-        alignment: Alignment.center,
-        child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 24),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Form(
-                key: formKey,
-                child: Column(
-                  children: [
-                    TextFormField(
-                      validator:(val){
-                        return val!.isEmpty ? "Please provide username" : null;
-                      },
-                      style: simpleTextFieldStyle(),
-                      controller: userNameTextEditingController,
-                      decoration: textFieldInputDecoration("username"),
-                    ),
-                    TextFormField(
-                      validator: (val){
-                        return  RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(val!) ?
-                        null : "Enter valid email";
-                      },
-                      controller: emailTextEditingController,
-                      style: simpleTextFieldStyle(),
-                      decoration: textFieldInputDecoration("email"),
-                    ),
-                    TextFormField(
-                      obscureText: true,
-                      validator: (val){
-                        return val!.length>6 ? null : "Please enter password with 6+ characters ";
-                      },
-                      controller: passwordTextEditingController,
-                      style: simpleTextFieldStyle(),
-                      decoration: textFieldInputDecoration("password"),
-                    ),
-                  ],
+          alignment: Alignment.center,
+          child: Container(
+            padding: EdgeInsets.symmetric(horizontal: 24),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Form(
+                  key: formKey,
+                  child: Column(
+                    children: [
+                      SizedBox(height: 30,),
+                      Container(
+                         decoration : BoxDecoration(
+                           color: Colors.lightBlue,
+
+                           borderRadius: BorderRadius.circular(45.0),
+                        ),
+                        height: 300,
+                        width: 400,
+                        child: Lottie.asset('assets/65003-conversation-lottie-animation.json'),
+                      ),
+                      SizedBox(height: 20,),
+
+                      TextFormField(
+                        validator:(val){
+                          return val!.isEmpty ? "Please provide username" : null;
+                        },
+                        style: simpleTextFieldStyle(),
+                        controller: userNameTextEditingController,
+                        decoration: textFieldInputDecoration("username"),
+                      ),
+                      TextFormField(
+                        validator: (val){
+                          return  RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(val!) ?
+                          null : "Enter valid email";
+                        },
+                        controller: emailTextEditingController,
+                        style: simpleTextFieldStyle(),
+                        decoration: textFieldInputDecoration("email"),
+                      ),
+                      TextFormField(
+                        obscureText: true,
+                        validator: (val){
+                          return val!.length>6 ? null : "Please enter password with 6+ characters ";
+                        },
+                        controller: passwordTextEditingController,
+                        style: simpleTextFieldStyle(),
+                        decoration: textFieldInputDecoration("password"),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-              SizedBox(height: 40,),
-              GestureDetector(
-                onTap: (){
-                  signValidator();
-                },
-                child: Container(
+                SizedBox(height: 40,),
+                GestureDetector(
+                  onTap: (){
+                    signValidator();
+                  },
+                  child: Container(
+                    alignment: Alignment.center,
+                    width: MediaQuery.of(context).size.width,
+                    padding: EdgeInsets.symmetric(vertical: 15),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(30),
+                        gradient: LinearGradient(
+                            colors: [
+                              Colors.blue,
+                              Colors.blueAccent,
+                            ]
+                        )
+                    ),
+                    child: Text("Sign Up",style: mediumTextFieldStyle(),),
+                  ),
+                ),
+                SizedBox(height: 15,),
+                Container(
                   alignment: Alignment.center,
                   width: MediaQuery.of(context).size.width,
                   padding: EdgeInsets.symmetric(vertical: 15),
@@ -109,44 +143,28 @@ authMethods.signUpWithEmailAndPassword(emailTextEditingController.text, password
                           ]
                       )
                   ),
-                  child: Text("Sign Up",style: mediumTextFieldStyle(),),
+                  child: Text("Sign up with Google",style: mediumTextFieldStyle(),),
                 ),
-              ),
-              SizedBox(height: 15,),
-              Container(
-                alignment: Alignment.center,
-                width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.symmetric(vertical: 15),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(30),
-                    gradient: LinearGradient(
-                        colors: [
-                          Colors.blue,
-                          Colors.blueAccent,
-                        ]
-                    )
+                SizedBox(height: 25,),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text("Already have an account ? ",style: simpleTextFieldStyle(),),
+                    GestureDetector(
+                      onTap: (){
+                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>SignIn()));
+                        },
+                      child: Text("SignIn now",style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 14,
+                          decoration: TextDecoration.underline
+                      ),),
+                    ),
+                  ],
                 ),
-                child: Text("Sign up with Google",style: mediumTextFieldStyle(),),
-              ),
-              SizedBox(height: 25,),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text("Already have an account ? ",style: simpleTextFieldStyle(),),
-                  GestureDetector(
-                    onTap: (){
-                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>SignIn()));
-                      },
-                    child: Text("SignIn now",style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 14,
-                        decoration: TextDecoration.underline
-                    ),),
-                  ),
-                ],
-              ),
 
-            ],
+              ],
+            ),
           ),
         ),
       ),

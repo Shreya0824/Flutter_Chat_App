@@ -24,6 +24,7 @@ class _SearchScreenState extends State<SearchScreen> {
       setState(() {
         isLoading = true;
       });
+
       await databaseMethods.getuserByUsername(searchTextEditingController.text)
           .then((snapshot) {
         searchSnapshot = snapshot;
@@ -42,7 +43,7 @@ class _SearchScreenState extends State<SearchScreen> {
             return SearchTile(userEmail: searchSnapshot.docs[index]["email"],
                 userName: searchSnapshot.docs[index]["name"]);
           })
-          : Container();
+          :  Container();
     }
 
     @override
@@ -94,7 +95,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   ],
                 ),
               ),
-              searchList(),
+             searchList(),
             ],
           ),
         ),
