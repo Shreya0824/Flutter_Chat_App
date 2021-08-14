@@ -103,7 +103,6 @@ class _SearchScreenState extends State<SearchScreen> {
   }
 createChatRoomAndStartConversation(BuildContext context ,String userName){
   if(Constants.myName!=userName){
-print("${Constants.myName}lllllllllllllllllllllll");
   String chatRoomId= getChatRoomId(userName,Constants.myName);
   List<String> users = [userName,Constants.myName];
   Map<String, dynamic> chatRoomMap = {

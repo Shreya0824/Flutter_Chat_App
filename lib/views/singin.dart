@@ -7,6 +7,7 @@ import 'package:flutter_chat_app/services/database.dart';
 import 'package:flutter_chat_app/views/signup.dart';
 import 'package:flutter_chat_app/widgets/widget.dart';
 import 'chat_room_screen.dart';
+import 'forgetpassword.dart';
 
 class SignIn extends StatefulWidget {
 
@@ -94,11 +95,15 @@ class _SignInState extends State<SignIn> {
                 ),
               ),
               SizedBox(height: 30,),
-              Container(
-                alignment: Alignment.centerRight,
+              GestureDetector(
+                onTap: (){
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>ForgotPassword()));                },
                 child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 30),
-                  child: Text("Forgot Password ?",style: simpleTextFieldStyle(),),),
+                  alignment: Alignment.centerRight,
+                  child: Container(
+                    padding: EdgeInsets.symmetric(horizontal: 30),
+                    child: Text("Forgot Password ?",style: simpleTextFieldStyle(),),),
+                ),
               ),
               SizedBox(height: 20,),
               Container(
