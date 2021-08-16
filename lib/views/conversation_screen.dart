@@ -165,7 +165,7 @@ MessageTile({required this.message, required this.isSendByMe, required this.time
           fontSize: 18,
         ),),
         SizedBox(height: 10,),
-        Text('${timestamp.replaceRange(0, 10, "").replaceRange(7, 14, "")}'
+        Text('${timestamp.replaceRange(0, 10, "").replaceRange(9, 16, "")}'
         ,style:TextStyle(
           color: Colors.white60,
           fontSize: 10,

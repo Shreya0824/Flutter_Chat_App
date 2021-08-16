@@ -129,22 +129,6 @@ authMethods.signUpWithEmailAndPassword(emailTextEditingController.text, password
                     child: Text("Sign Up",style: mediumTextFieldStyle(),),
                   ),
                 ),
-                SizedBox(height: 15,),
-                Container(
-                  alignment: Alignment.center,
-                  width: MediaQuery.of(context).size.width,
-                  padding: EdgeInsets.symmetric(vertical: 15),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(30),
-                      gradient: LinearGradient(
-                          colors: [
-                            Colors.blue,
-                            Colors.blueAccent,
-                          ]
-                      )
-                  ),
-                  child: Text("Sign up with Google",style: mediumTextFieldStyle(),),
-                ),
                 SizedBox(height: 25,),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,

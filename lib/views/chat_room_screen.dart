@@ -50,7 +50,8 @@ void initState(){
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title:  Expanded(child: Text("Flutter Chat App")),
+        title:  Expanded
+          (child: Text("Flutter Chat App")),
         actions:[
           GestureDetector(
             onTap: (){

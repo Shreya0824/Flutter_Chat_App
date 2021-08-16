@@ -24,6 +24,7 @@ class _SignInState extends State<SignIn> {
   AuthMethods authMethods = new AuthMethods();
   DatabaseMethods databaseMethods = new DatabaseMethods();
   late QuerySnapshot userInfoSnapshot;
+
   signIn() async {
     if (formKey.currentState!.validate()) {
       HelperFunctions.saveUserEmailSharedPreference(
@@ -75,7 +76,7 @@ class _SignInState extends State<SignIn> {
                   key: formKey,
                   child: Column(
                     children: [
-                      SizedBox(height: 40,),
+                      SizedBox(height: 50,),
                       ClipRRect(
                           borderRadius: BorderRadius.circular(45.0),
                         child: Lottie.asset('assets/41556-chatting-between-boy-and-girl (1).json'),
@@ -113,7 +114,7 @@ class _SignInState extends State<SignIn> {
                       child: Text("Forgot Password ?",style: simpleTextFieldStyle(),),),
                   ),
                 ),
-                SizedBox(height: 20,),
+                SizedBox(height: 30,),
                 Container(
                   alignment: Alignment.center,
                   width: MediaQuery.of(context).size.width,
@@ -133,22 +134,7 @@ class _SignInState extends State<SignIn> {
                       },
                       child: Text("Sign In",style: mediumTextFieldStyle(),)),
                 ),
-                SizedBox(height: 15,),
-                Container(
-                  alignment: Alignment.center,
-                  width: MediaQuery.of(context).size.width,
-                  padding: EdgeInsets.symmetric(vertical: 15),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(30),
-                      gradient: LinearGradient(
-                          colors: [
-                            Colors.blue,
-                            Colors.blueAccent,
-                          ]
-                      )
-                  ),
-                  child: Text("Sign in with Google",style: mediumTextFieldStyle(),),
-                ),
+
                 SizedBox(height: 15,),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
