@@ -56,6 +56,7 @@ void initState(){
           GestureDetector(
             onTap: (){
               authMethods.signOut();
+              HelperFunctions.saveUserLoggedInSharedPreference(false);
               Navigator.pushReplacement(context, MaterialPageRoute(
                   builder: (context)=> SignIn()));
             },
