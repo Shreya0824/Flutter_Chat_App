@@ -4,6 +4,7 @@ import 'package:flutter_chat_app/helper/constants.dart';
 import 'package:flutter_chat_app/widgets/widget.dart';
 import 'package:flutter_chat_app/services/database.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:intl/intl.dart';
 
 class ConversationScreen extends StatefulWidget {
 final String chatRoomId;
@@ -35,7 +36,10 @@ setState(() {
           shrinkWrap: true,
           itemCount:snapshot.data!.docs.length ,
           itemBuilder: (context,index){
-            return MessageTile(message:snapshot.data!.docs[index]['message'],isSendByMe: snapshot.data!.docs[index]['sendBy']==Constants.myName,);
+            return MessageTile(message:snapshot.data!.docs[index]['message'],
+              isSendByMe: snapshot.data!.docs[index]['sendBy']==Constants.myName,
+              timestamp:  snapshot.data!.docs[index]['time'],
+            );
           }):Container();
     },
     );
@@ -46,7 +50,7 @@ setState(() {
       Map<String,String>messageMap={
         "message":messageController.text,
         "sendBy":Constants.myName,
-        "time": DateTime.now().millisecondsSinceEpoch.toString(),
+        "time":DateTime.now().toString(),
       };
       databaseMethods.addConversationMessages(widget.chatRoomId,messageMap );
       messageController.text="";
@@ -120,8 +124,10 @@ setState(() {
 class MessageTile extends StatelessWidget {
 final String message;
 final bool isSendByMe;
+final String timestamp;
+DateTime now =new DateTime.now();
 
-MessageTile({required this.message, required this.isSendByMe});
+MessageTile({required this.message, required this.isSendByMe, required this.timestamp});
 
   @override
   Widget build(BuildContext context) {
@@ -152,10 +158,20 @@ MessageTile({required this.message, required this.isSendByMe});
               ]
           )
         ),
-        child: Text(message,style:TextStyle(
+        child: Column(
+      children:<Widget>[
+        Text(message,style:TextStyle(
           color: Colors.white,
           fontSize: 18,
         ),),
+        SizedBox(height: 10,),
+        Text('${timestamp.replaceRange(0, 10, "").replaceRange(7, 14, "")}'
+        ,style:TextStyle(
+          color: Colors.white60,
+          fontSize: 10,
+        ),),
+      ]
+        )
       ),
     );
   }
